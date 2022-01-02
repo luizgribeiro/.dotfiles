@@ -1,0 +1,4 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
+  "metals.javaHome": "/usr/lib/jvm/java-17-openjdk"
+}
