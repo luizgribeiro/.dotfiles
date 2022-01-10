@@ -1,0 +1,19 @@
+[caps]>[fntog]
+[rspc]>[bspc]
+
+fn [caps]>[fntog]
+fn [f]>[fntog]
+fn [rspc]>[bspc]
+fn [i]>[hyph]
+fn [o]>[=]
+
+fn {y}>{-lshft}{d50}{9}{+lshft}{fntog}
+fn {u}>{-lshft}{d50}{0}{+lshft}{fntog}
+fn {h}>{enter}{d50}{fntog}
+fn {q}>{-lshft}{d50}{tilde}{+lshft}{spc}{fntog}
+fn {w}>{-lshft}{d50}{obrk}{+lshft}{fntog}
+fn {e}>{-lshft}{d50}{cbrk}{+lshft}{fntog}
+fn {r}>{obrk}{d50}{fntog}
+fn {t}>{cbrk}{d50}{fntog}
+fn {j}>{esc}{d50}{fntog}
+fn {g}>{lctlr}{d50}{a}{fntog}
