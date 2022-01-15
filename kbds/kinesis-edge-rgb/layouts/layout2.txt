@@ -7,13 +7,27 @@ fn [rspc]>[bspc]
 fn [i]>[hyph]
 fn [o]>[=]
 
-fn {y}>{-lshft}{d50}{9}{+lshft}{fntog}
-fn {u}>{-lshft}{d50}{0}{+lshft}{fntog}
-fn {h}>{enter}{d50}{fntog}
-fn {q}>{-lshft}{d50}{tilde}{+lshft}{spc}{fntog}
-fn {w}>{-lshft}{d50}{obrk}{+lshft}{fntog}
-fn {e}>{-lshft}{d50}{cbrk}{+lshft}{fntog}
-fn {r}>{obrk}{d50}{fntog}
-fn {t}>{cbrk}{d50}{fntog}
-fn {j}>{esc}{d50}{fntog}
-fn {g}>{lctlr}{d50}{a}{fntog}
+fn {y}>{-lshft}{d50}{9}{+lshft}
+fn {u}>{-lshft}{d50}{0}{+lshft}
+fn {h}>{enter}{d50}
+fn {-lshft}{h}>{enter}
+fn {q}>{-lshft}{d50}{tilde}{+lshft}
+fn {w}>{-lshft}{d50}{obrk}{+lshft}
+fn {e}>{-lshft}{d50}{cbrk}{+lshft}
+fn {r}>{obrk}{d50}
+fn {t}>{cbrk}{d50}
+fn {j}>{esc}{d50}
+fn {g}>{lctlr}{d50}{a}
+
+{-lshift}{0}{+lshift}>{null}
+{-lshift}{9}{+lshift}>{null}
+{-lshift}{-}{+lshift}>{null}
+{-lshift}{=}{+lshift}>{null}
+{-lshift}{obrk}{+lshift}>{null}
+{-lshift}{cbrk}{+lshift}>{null}
+
+[-]>[null]
+[=]>[null]
+[enter]>[null]
+[bspc]>[null]
+[esc]>[null]
