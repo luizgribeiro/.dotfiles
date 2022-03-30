@@ -1,7 +1,5 @@
 {
-  "javascript": {
-    "snippets": {
-      "clg": "console.log()"
-    }
+  "custom_expands": {
+    "clg": "console.log()"
   }
 }

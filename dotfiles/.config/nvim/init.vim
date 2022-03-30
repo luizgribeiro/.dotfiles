@@ -261,3 +261,4 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 "####### EMMET #######
 let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/snippets_custom.json')), "\n"))
+let g:user_emmet_leader_key='<C-F>'
