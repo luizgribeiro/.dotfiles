@@ -25,6 +25,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "Extras
 Plug 'tpope/vim-fugitive'
+Plug 'mfussenegger/nvim-dap'
+Plug 'mattn/emmet-vim'
+Plug 'mattn/webapi-vim'
+
 call plug#end()
 
 color jellybeans 
@@ -253,3 +257,7 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+
+"####### EMMET #######
+let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/snippets_custom.json')), "\n"))
