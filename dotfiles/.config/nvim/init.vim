@@ -18,9 +18,10 @@ Plug 'ap/vim-buftabline'
 Plug 'preservim/nerdtree'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Programming complete/
-"Plug 'jiangmiao/auto-pairs'
+Plug 'tmsvg/pear-tree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "Extras
@@ -52,6 +53,14 @@ set hidden
 set relativenumber
 " Absolute line number (combined with the above shows the current line number)
 set number 
+
+" Folding key bindings
+nnoremap zz za
+vnoremap zz zf
+
+" ########### PEAR-TREE ##########
+exec "imap <buffer> <CR> ".maparg("<CR>", "i")."<Plug>(PearTreeExpand)"
+imap <CR> <Plug>(PearTreeExpand)<Plug>DiscretionaryEnd
 
 " ########### FUGITIVE ########### 
 nmap <leader>gh :dffget //3<CR>
@@ -245,15 +254,11 @@ augroup Smartf
   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 augroup end
+
 "######### TELESCOPE ########## 
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Using Lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true, layout_config={prompt_position="top"}})<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
@@ -262,3 +267,37 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 "####### EMMET #######
 let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/snippets_custom.json')), "\n"))
 let g:user_emmet_leader_key='<C-F>'
+
+
+"####### PEAR TREE ######
+let g:pear_tree_smart_openers = 1 
+let g:pear_tree_smart_closers = 1  
+let g:pear_tree_smart_backspace = 1 
+
+"####### TREE SITTER #####
+lua <<EOF      
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = {    
+      "c",
+      "lua",               
+      "go",                  
+      "python",                 
+      "javascript",                     
+      "typescript",                                            
+      "scala",
+      "tsx",               
+      "yaml",             
+      "vue",                                        
+      "json"             
+    },                   
+                             
+    -- Install parsers synchronously (only applied to `ensure_installed`)
+    sync_install = false, 
+                           
+    highlight = {        
+      enable = true,     
+      additional_vim_regex_highlighting = false,
+    },               
+  } 
+  vim.o.foldmethod = 'expr'
+  vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
