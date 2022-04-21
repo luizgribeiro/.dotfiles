@@ -299,5 +299,6 @@ lua <<EOF
       additional_vim_regex_highlighting = false,
     },               
   } 
+  vim.o.foldlevel = 1 
   vim.o.foldmethod = 'expr'
   vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
