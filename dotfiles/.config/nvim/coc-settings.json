@@ -1,4 +1,11 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["*"],
-  "metals.javaHome": "/usr/lib/jvm/java-17-openjdk"
+  "metals.javaHome": "/usr/lib/jvm/java-17-openjdk",
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"],
+      "initializationOptions": {}
+    }
+  }
 }
