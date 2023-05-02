@@ -6,7 +6,4 @@ layout {
         pane size="68%"  name="editting"
         pane size="32%" focus=true name="running app" 
     }
-    pane size=2 borderless=true {
-        plugin location="zellij:status-bar"
-    }
 }
