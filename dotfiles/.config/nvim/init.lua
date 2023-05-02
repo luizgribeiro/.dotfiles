@@ -33,7 +33,9 @@ require('packer').startup(function(use)
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
+  -- colorschemes
   use { "ellisonleao/gruvbox.nvim" }
+  use { "Mofiqul/dracula.nvim" }
 
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -54,9 +56,7 @@ require('packer').startup(function(use)
 
   use {
     'nvim-tree/nvim-tree.lua',
-    requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    },
+
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
 
@@ -134,7 +134,7 @@ vim.wo.signcolumn = 'yes'
 vim.o.termguicolors = true
 -- vim.cmd [[colorscheme onedark]]
 vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[colorscheme dracula]])
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -170,7 +170,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'onedark',
+    theme = 'dracula',
     component_separators = '|',
     section_separators = '',
   },
@@ -372,22 +372,13 @@ local servers = {
   -- rust_analyzer = {},
   tsserver = {},
 
-  eslint = {
-
-  },
+  eslint = {},
   dockerls = {},
   yamlls = {},
   bashls = {},
   jsonls = {},
   jdtls = {},
   sqlls = {},
-
-  sumneko_lua = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
 }
 
 -- Setup neovim lua configuration
@@ -471,10 +462,6 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
--- empty setup using defaults
-require("nvim-tree").setup()
-
--- OR setup with some options
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -494,5 +481,7 @@ require("nvim-tree").setup({
 })
 
 vim.keymap.set('n', '<leader>tt', ":NvimTreeToggle<CR>", { silent = true })
+
+-- require 'nvim-web-devicons'.setup()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
