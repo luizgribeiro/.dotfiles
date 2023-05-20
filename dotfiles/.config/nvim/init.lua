@@ -49,6 +49,8 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
+
+
   -- Git related plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
@@ -71,6 +73,10 @@ require('packer').startup(function(use)
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+
+  use { 'ThePrimeagen/harpoon' }
+
+  use { 'mbbill/undotree' }
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -464,6 +470,9 @@ vim.opt.termguicolors = true
 
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
+  renderer = {
+    group_empty = true,
+  },
   view = {
     width = 30,
     mappings = {
@@ -472,16 +481,27 @@ require("nvim-tree").setup({
       },
     },
   },
-  renderer = {
-    group_empty = true,
-  },
   filters = {
     dotfiles = false,
   },
 })
 
-vim.keymap.set('n', '<leader>tt', ":NvimTreeToggle<CR>", { silent = true })
+vim.keymap.set('n', '<leader>tt', vim.cmd.NvimTreeToggle, { silent = true })
 
 -- require 'nvim-web-devicons'.setup()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+
+--harpoon configs
+local mark = require('harpoon.mark')
+local ui = require('harpoon.ui')
+
+vim.keymap.set("n", "<leader>n", mark.add_file)
+vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+
+--undo tree
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+-- fugitive 
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
