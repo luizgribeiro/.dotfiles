@@ -28,6 +28,11 @@ require('packer').startup(function(use)
     },
   }
 
+  -- dap/debugger
+  use 'mfussenegger/nvim-dap'
+  use 'rcarriga/nvim-dap-ui'
+  use 'leoluz/nvim-dap-go'
+
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
@@ -170,6 +175,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- Remap for dap
+vim.keymap.set('n', '<leader>dc', require('dap').continue, { desc = 'Continue/start dap debugging client' })
+vim.keymap.set('n', '<leader>db', require('dap').toggle_breakpoint, { desc = 'Toggle breakpoint on current line' })
+vim.keymap.set('n', '<leader>dr', require('dap').repl.toggle, { desc = '[D]ap toggle [r]epl' })
+vim.keymap.set('n', '<leader>dx', require('dap').close, { desc = 'Close current debugging session' })
+vim.keymap.set('n', '<leader>du', require('dapui').toggle, { desc = 'Toggle dap ui' })
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
@@ -503,5 +515,39 @@ vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 --undo tree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
--- fugitive 
+-- fugitive
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+
+require('dap-go').setup {
+  -- Additional dap configurations can be added.
+  -- dap_configurations accepts a list of tables where each entry
+  -- represents a dap configuration. For more details do:
+  -- :help dap-configuration
+  dap_configurations = {
+    {
+      -- Must be "go" or it will be ignored by the plugin
+      type = "go",
+      name = "Attach remote",
+      mode = "remote",
+      request = "attach",
+    },
+  },
+  -- delve configurations
+  delve = {
+    -- the path to the executable dlv which will be used for debugging.
+    -- by default, this is the "dlv" executable on your PATH.
+    path = "dlv",
+    -- time to wait for delve to initialize the debug session.
+    -- default to 20 seconds
+    initialize_timeout_sec = 20,
+    -- a string that defines the port to start delve debugger.
+    -- default to string "${port}" which instructs nvim-dap
+    -- to start the process in a random available port
+    port = "${port}",
+    -- additional args to pass to dlv
+    args = {}
+  },
+}
+
+require('dapui').setup()
+
