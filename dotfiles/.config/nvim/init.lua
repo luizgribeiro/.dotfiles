@@ -569,13 +569,7 @@ require("dap-vscode-js").setup({
     -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
 })
 
--- require('dap').adapters['pwa-node'] = {
---     type = "server",
---     cwd = "Testrstrsstrst",
---     port = 2299,
--- }
---
-dap = require('dap')
+local dap = require('dap')
 
 for _, language in ipairs({ "typescript", "javascript" }) do
     dap.configurations[language] = {
@@ -585,54 +579,83 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             request = "attach",
             port = 2299,
             restart = true,
-            localRoot = "abcd",
+            localRoot = "${workspaceFolder}",
             remoteRoot = "/app",
-            cwd = "oi",
             -- skipFiles": [
             --                 "<node_internals>/**",
             --                 "${workspaceFolder}/node_modules/.bin/jest",
             --                 "/app/node_modules/**",
             --             ],
-            protocol = "inspector"
+            protocol = "inspector",
+            autoReload = {
+                enable = true
+            }
 
         },
 
+        {
+            name = "Attach to container - Second",
+            type = "pwa-node",
+            request = "attach",
+            port = 2299,
+            restart = true,
+            localRoot = "${workspaceFolder}",
+            remoteRoot = "/app",
+            -- skipFiles": [
+            --                 "<node_internals>/**",
+            --                 "${workspaceFolder}/node_modules/.bin/jest",
+            --                 "/app/node_modules/**",
+            --             ],
+            protocol = "inspector",
+            autoReload = {
+                enable = true
+            }
+
+        },
+
+  {
+    type = "pwa-node",
+    request = "launch",
+    name = "Launch file",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+  },
     }
 end
 
-dap.adapters["lua-local"] = {
-    type = "executable",
-    command = "node",
-    args = {
-        "/absolute/path/to/local-lua-debugger-vscode/extension/debugAdapter.js"
-    },
-    enrich_config = function(config, on_config)
-        if not config["extensionPath"] then
-            local c = vim.deepcopy(config)
-            -- 💀 If this is missing or wrong you'll see
-            -- "module 'lldebugger' not found" errors in the dap-repl when trying to launch a debug session
-            c.extensionPath = "/absolute/path/to/local-lua-debugger-vscode/"
-            on_config(c)
-        else
-            on_config(config)
-        end
-    end,
-}
-
-
-dap.configurations["lua"] = {
-    {
-        type = "lua-local",
-        request = "launch",
-        name = "Debug custom executable",
-        program = {
-            command = "executable"
-        },
-        args = {
-            "${workspaceFolder}"
-        } 
-    }
-}
+-- dap.adapters["lua-local"] = {
+--     type = "executable",
+--     command = "node",
+--     args = {
+--         "/absolute/path/to/local-lua-debugger-vscode/extension/debugAdapter.js"
+--     },
+--     enrich_config = function(config, on_config)
+--         if not config["extensionPath"] then
+--             local c = vim.deepcopy(config)
+--             -- 💀 If this is missing or wrong you'll see
+--             -- "module 'lldebugger' not found" errors in the dap-repl when trying to launch a debug session
+--             c.extensionPath = "/absolute/path/to/local-lua-debugger-vscode/"
+--             on_config(c)
+--         else
+--             on_config(config)
+--         end
+--     end,
+-- }
+--
+--
+-- dap.configurations["lua"] = {
+--     {
+--         type = "lua-local",
+--         request = "launch",
+--         name = "Debug custom executable",
+--         program = {
+--             command = "executable"
+--         },
+--         args = {
+--             "${workspaceFolder}"
+--         } 
+--     }
+-- }
 
 --
 --
