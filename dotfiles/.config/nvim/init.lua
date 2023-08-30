@@ -28,6 +28,13 @@ require('packer').startup(function(use)
         },
     }
 
+    use {
+        'j-hui/fidget.nvim',
+        tag = 'legacy',
+    }
+
+    use 'windwp/nvim-ts-autotag'
+
     -- dap/debugger
     use 'mfussenegger/nvim-dap'
     use 'rcarriga/nvim-dap-ui'
@@ -597,7 +604,7 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             name = "Attach to container - Second",
             type = "pwa-node",
             request = "attach",
-            port = 2299,
+            port = 9229,
             restart = true,
             localRoot = "${workspaceFolder}",
             remoteRoot = "/app",
@@ -623,62 +630,4 @@ for _, language in ipairs({ "typescript", "javascript" }) do
     }
 end
 
--- dap.adapters["lua-local"] = {
---     type = "executable",
---     command = "node",
---     args = {
---         "/absolute/path/to/local-lua-debugger-vscode/extension/debugAdapter.js"
---     },
---     enrich_config = function(config, on_config)
---         if not config["extensionPath"] then
---             local c = vim.deepcopy(config)
---             -- 💀 If this is missing or wrong you'll see
---             -- "module 'lldebugger' not found" errors in the dap-repl when trying to launch a debug session
---             c.extensionPath = "/absolute/path/to/local-lua-debugger-vscode/"
---             on_config(c)
---         else
---             on_config(config)
---         end
---     end,
--- }
---
---
--- dap.configurations["lua"] = {
---     {
---         type = "lua-local",
---         request = "launch",
---         name = "Debug custom executable",
---         program = {
---             command = "executable"
---         },
---         args = {
---             "${workspaceFolder}"
---         } 
---     }
--- }
-
---
---
---
---
---
---   {
---       {
---           -- {
---           --     type = "pwa-node",
---           --     request = "launch",
---           --     name = "Launch file",
---           --     program = "${file}",
---           --     cwd = "${workspaceFolder}",
---           -- },
---           {
---
---               type = "pwa-node",
---               request = "attach",
---               -- name = "Attach",
---               -- processId = require 'dap.utils'.pick_process,
---               -- cwd = "${workspaceFolder}",
---           }
---       }
---   }
--- end
+require('nvim-ts-autotag').setup()
