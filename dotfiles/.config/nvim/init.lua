@@ -437,44 +437,44 @@ require("fidget").setup()
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
-cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<C-d>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
-		}),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-	}),
-	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-	},
-})
+cmp.setup {
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
+    mapping = cmp.mapping.preset.insert {
+        ['<C-d>'] = cmp.mapping.scroll_docs( -4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        },
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            -- elseif luasnip.expand_or_jumpable() then
+            --     luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable( -1) then
+                luasnip.jump( -1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+    },
+}
 
 -- nvim-tree
 -- disable netrw at the very start of your init.lua (strongly advised)
@@ -522,6 +522,7 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 -- fugitive
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
+<<<<<<< Updated upstream
 require("dap-go").setup({
 	-- Additional dap configurations can be added.
 	-- dap_configurations accepts a list of tables where each entry
@@ -565,6 +566,8 @@ require("dap-vscode-js").setup({
 
 local dap = require("dap")
 
+
+
 for _, language in ipairs({ "typescript", "javascript" }) do
 	dap.configurations[language] = {
 		{
@@ -585,7 +588,6 @@ for _, language in ipairs({ "typescript", "javascript" }) do
 				enable = true,
 			},
 		},
-
 		{
 			name = "Attach to container - Second",
 			type = "pwa-node",
