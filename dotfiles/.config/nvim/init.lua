@@ -522,7 +522,6 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 -- fugitive
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
-<<<<<<< Updated upstream
 require("dap-go").setup({
 	-- Additional dap configurations can be added.
 	-- dap_configurations accepts a list of tables where each entry
