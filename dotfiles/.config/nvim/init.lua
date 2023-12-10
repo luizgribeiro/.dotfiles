@@ -11,8 +11,6 @@ require("packer").startup(function(use)
 	-- Package manager
 	use("wbthomason/packer.nvim")
 
-	use("mfussenegger/nvim-jdtls")
-
 	use({
 		-- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
@@ -80,11 +78,12 @@ require("packer").startup(function(use)
 	use("tpope/vim-rhubarb")
 	use("lewis6991/gitsigns.nvim")
 
-	use({
-		"nvim-tree/nvim-tree.lua",
-		tag = "nightly", -- optional, updated every week. (see issue #1193)
-	})
-
+	use {
+	  'nvim-tree/nvim-tree.lua',
+	  requires = {
+	    'nvim-tree/nvim-web-devicons',
+	  },
+	}
 	use("navarasu/onedark.nvim") -- Theme inspired by Atom
 	use("nvim-lualine/lualine.nvim") -- Fancier statusline
 	use("lukas-reineke/indent-blankline.nvim") -- Add indentation guides even on blank lines
@@ -219,9 +218,10 @@ require("Comment").setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
-require("indent_blankline").setup({
-	char = "┊",
-	show_trailing_blankline_indent = false,
+require("ibl").setup({
+	indent = {
+		char = "┊",
+	}
 })
 
 -- Gitsigns
@@ -399,7 +399,6 @@ local servers = {
 	yamlls = {},
 	bashls = {},
 	jsonls = {},
-	jdtls = {},
 	sqlls = {},
 }
 
@@ -491,11 +490,6 @@ require("nvim-tree").setup({
 	},
 	view = {
 		width = 30,
-		mappings = {
-			list = {
-				{ key = "u", action = "dir_up" },
-			},
-		},
 	},
 	filters = {
 		dotfiles = false,
